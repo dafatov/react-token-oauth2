@@ -23,6 +23,9 @@ export const createAuthProvider = ({
   let _session = tokenProvider.getToken();
 
   const updateSession = (session) => {
+    if (session) {
+      session.updated_at = Date.now();
+    }
     tokenProvider.setToken(session);
     _session = session;
     listenersContainer.notify();
@@ -37,7 +40,7 @@ export const createAuthProvider = ({
   const getSession = async () => {
     const expiresIn = extractFromSession(getSessionState(), getExpiresIn);
 
-    if (_session && tokenUpdater && expiresIn && isTokenExpired(expiresIn, expirationThresholdMillisec)) {
+    if (_session && tokenUpdater && expiresIn && isTokenExpired(getSessionState().updated_at, expiresIn, expirationThresholdMillisec)) {
       const updatedSession = await tokenUpdater.updateToken(_session);
       updateSession(updatedSession);
     }

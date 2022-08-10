@@ -1,8 +1,8 @@
-export const isTokenExpired = (expiresIn, thresholdMillisec) => {
+export const isTokenExpired = (updatedAt, expiresIn, thresholdMillisec) => {
   if (!expiresIn) {
     return false;
   }
-  return Date.now() > expiresIn - (thresholdMillisec
+  return Date.now() - updatedAt > 1000 * expiresIn - (thresholdMillisec
     ? thresholdMillisec
     : 0);
 };

@@ -3,6 +3,7 @@ export const createAuthFetch = (getAccessToken, fetchFunction) => {
     const accessToken = await getAccessToken();
 
     init = init || {};
+    init.headers = init.headers || {};
 
     if (accessToken) {
       init.headers.Authorization = `Bearer ${accessToken}`;

@@ -10,7 +10,7 @@ export const createAuthProvider = ({
   storageKey = 'REACT_TOKEN_AUTH_KEY',
   onUpdateToken,
   onHydration,
-  storage = sessionStorage,
+  storage = localStorage,
   fetchFunction = fetch,
   getAccessToken,
   getExpiresIn,

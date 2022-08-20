@@ -10,6 +10,7 @@ export const createAuthProvider = ({
   storageKey = 'REACT_TOKEN_AUTH_KEY',
   onUpdateToken,
   onHydration,
+  onGetSession,
   storage = localStorage,
   fetchFunction = fetch,
   getAccessToken,
@@ -43,6 +44,9 @@ export const createAuthProvider = ({
     if (_session && tokenUpdater && expiresIn && isTokenExpired(getSessionState().updated_at, expiresIn, expirationThresholdMillisec)) {
       const updatedSession = await tokenUpdater.updateToken(_session);
       updateSession(updatedSession);
+    }
+    if (onGetSession) {
+      updateSession(await onGetSession(getSessionState()));
     }
     return getSessionState();
   };

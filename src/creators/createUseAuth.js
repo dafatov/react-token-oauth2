@@ -6,7 +6,7 @@ export const createUseAuth = ({
   listenersContainer,
 }) => {
   return () => {
-    const [session, setSession] = useState(null);
+    const [session, setSession] = useState(undefined);
 
     const updateIsLoggedIn = () => {
       const actualSession = getSessionState();
